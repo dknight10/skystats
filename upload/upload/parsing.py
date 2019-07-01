@@ -209,14 +209,16 @@ class RangeDataParser(Parser):
         Transforms the data by club into a large list of dicts.
         """
         data: List[Dict[str, str]] = []
-
+        shot_num = 1
         for club, rows in self.data_by_club().items():
             for row in rows:
                 row_dict = {}
                 for n, item in enumerate(row):
                     row_dict[self.NAMES[n]] = item
                     row_dict["club"] = club
+                    row_dict["shot"] = str(shot_num)
                 data.append(row_dict)
+                shot_num += 1
 
         return data
 
