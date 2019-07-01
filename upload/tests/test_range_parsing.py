@@ -206,7 +206,7 @@ def test_range_data_parser_data_rows():
             "club": "undefined",
         },
         {
-            "shot": "1",
+            "shot": "4",
             "hand": "R",
             "ball_speed": "162",
             "launch_angle": "10.9",
@@ -225,7 +225,7 @@ def test_range_data_parser_data_rows():
             "club": "driver",
         },
         {
-            "shot": "2",
+            "shot": "5",
             "hand": "R",
             "ball_speed": "160",
             "launch_angle": "15.4",
@@ -244,7 +244,7 @@ def test_range_data_parser_data_rows():
             "club": "driver",
         },
         {
-            "shot": "1",
+            "shot": "6",
             "hand": "R",
             "ball_speed": "161",
             "launch_angle": "14.3",
@@ -339,7 +339,7 @@ def test_range_data_parser_json():
             "notes": {},
         },
         {
-            "shot": "1",
+            "shot": "4",
             "hand": "R",
             "ball_speed": "162",
             "launch_angle": "10.9",
@@ -362,7 +362,7 @@ def test_range_data_parser_json():
             "notes": {},
         },
         {
-            "shot": "2",
+            "shot": "5",
             "hand": "R",
             "ball_speed": "160",
             "launch_angle": "15.4",
@@ -385,7 +385,7 @@ def test_range_data_parser_json():
             "notes": {},
         },
         {
-            "shot": "1",
+            "shot": "6",
             "hand": "R",
             "ball_speed": "161",
             "launch_angle": "14.3",
