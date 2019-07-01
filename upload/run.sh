@@ -1,4 +1,5 @@
-export OUTPUT_TYPE=file
-export OUTPUT_LOCATION=/Users/chaknight/Projects/skytrak-stats/upload/test.csv
+export OUTPUT_TYPE=
+export OUTPUT_LOCATION=
+export FLASK_ENV=development
 
-FLASK_APP=upload/api.py FLASK_ENV=development flask run
+FLASK_APP=upload/api.py flask run
