@@ -22,10 +22,9 @@ class Shot(models.Model):
     pti = models.DecimalField(max_digits=3, decimal_places=2)
     club = models.CharField(max_length=20)  # TODO add choices
     name = models.CharField(max_length=100)
-    timestamp = models.DateField()
+    timestamp = models.DateTimeField()
     session_type = models.CharField(max_length=20)  # TODO add choices
 
     class Meta:
         ordering = ["-timestamp"]
         indexes = [models.Index(fields=["club"]), models.Index(fields=["timestamp"])]
-
