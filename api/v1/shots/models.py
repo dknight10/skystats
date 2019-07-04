@@ -24,3 +24,8 @@ class Shot(models.Model):
     name = models.CharField(max_length=100)
     timestamp = models.DateField()
     session_type = models.CharField(max_length=20)  # TODO add choices
+
+    class Meta:
+        ordering = ["-timestamp"]
+        indexes = [models.Index(fields=["club"]), models.Index(fields=["timestamp"])]
+
