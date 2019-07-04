@@ -149,7 +149,7 @@ def test_range_data_parser_data_by_club():
 def test_range_data_parser_data_rows():
     expected = [
         {
-            "shot": "1",
+            "shot_num": "1",
             "hand": "R",
             "ball_speed": "33",
             "launch_angle": "40.8",
@@ -168,7 +168,7 @@ def test_range_data_parser_data_rows():
             "club": "undefined",
         },
         {
-            "shot": "2",
+            "shot_num": "2",
             "hand": "R",
             "ball_speed": "32",
             "launch_angle": "24.8",
@@ -187,7 +187,7 @@ def test_range_data_parser_data_rows():
             "club": "undefined",
         },
         {
-            "shot": "3",
+            "shot_num": "3",
             "hand": "R",
             "ball_speed": "32",
             "launch_angle": "39.2",
@@ -206,7 +206,7 @@ def test_range_data_parser_data_rows():
             "club": "undefined",
         },
         {
-            "shot": "4",
+            "shot_num": "4",
             "hand": "R",
             "ball_speed": "162",
             "launch_angle": "10.9",
@@ -225,7 +225,7 @@ def test_range_data_parser_data_rows():
             "club": "driver",
         },
         {
-            "shot": "5",
+            "shot_num": "5",
             "hand": "R",
             "ball_speed": "160",
             "launch_angle": "15.4",
@@ -244,7 +244,7 @@ def test_range_data_parser_data_rows():
             "club": "driver",
         },
         {
-            "shot": "6",
+            "shot_num": "6",
             "hand": "R",
             "ball_speed": "161",
             "launch_angle": "14.3",
@@ -270,7 +270,7 @@ def test_range_data_parser_data_rows():
 def test_range_data_parser_json():
     expected = [
         {
-            "shot": "1",
+            "shot_num": "1",
             "hand": "R",
             "ball_speed": "33",
             "launch_angle": "40.8",
@@ -289,11 +289,11 @@ def test_range_data_parser_json():
             "club": "undefined",
             "name": "Donny Knight",
             "timestamp": "2019-06-29T15:29",
-            "type": "practice",
+            "session_type": "practice",
             "notes": {},
         },
         {
-            "shot": "2",
+            "shot_num": "2",
             "hand": "R",
             "ball_speed": "32",
             "launch_angle": "24.8",
@@ -312,11 +312,11 @@ def test_range_data_parser_json():
             "club": "undefined",
             "name": "Donny Knight",
             "timestamp": "2019-06-29T15:29",
-            "type": "practice",
+            "session_type": "practice",
             "notes": {},
         },
         {
-            "shot": "3",
+            "shot_num": "3",
             "hand": "R",
             "ball_speed": "32",
             "launch_angle": "39.2",
@@ -335,11 +335,11 @@ def test_range_data_parser_json():
             "club": "undefined",
             "name": "Donny Knight",
             "timestamp": "2019-06-29T15:29",
-            "type": "practice",
+            "session_type": "practice",
             "notes": {},
         },
         {
-            "shot": "4",
+            "shot_num": "4",
             "hand": "R",
             "ball_speed": "162",
             "launch_angle": "10.9",
@@ -358,11 +358,11 @@ def test_range_data_parser_json():
             "club": "driver",
             "name": "Donny Knight",
             "timestamp": "2019-06-29T15:29",
-            "type": "practice",
+            "session_type": "practice",
             "notes": {},
         },
         {
-            "shot": "5",
+            "shot_num": "5",
             "hand": "R",
             "ball_speed": "160",
             "launch_angle": "15.4",
@@ -381,11 +381,11 @@ def test_range_data_parser_json():
             "club": "driver",
             "name": "Donny Knight",
             "timestamp": "2019-06-29T15:29",
-            "type": "practice",
+            "session_type": "practice",
             "notes": {},
         },
         {
-            "shot": "6",
+            "shot_num": "6",
             "hand": "R",
             "ball_speed": "161",
             "launch_angle": "14.3",
@@ -404,7 +404,7 @@ def test_range_data_parser_json():
             "club": "driver",
             "name": "Donny Knight",
             "timestamp": "2019-06-29T15:29",
-            "type": "practice",
+            "session_type": "practice",
             "notes": {},
         },
     ]

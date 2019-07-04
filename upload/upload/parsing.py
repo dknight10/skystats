@@ -29,7 +29,7 @@ class SessionInfo:
         return {
             "name": self.name,
             "timestamp": self.timestamp.isoformat(timespec="minutes"),  # type: ignore
-            "type": self.type_,
+            "session_type": self.type_,
             "notes": self.notes,
         }
 
@@ -65,7 +65,7 @@ class RangeDataParser(Parser):
         "PTI",
     ]
     NAMES = [
-        "shot",
+        "shot_num",
         "hand",
         "ball_speed",
         "launch_angle",
@@ -216,7 +216,7 @@ class RangeDataParser(Parser):
                 for n, item in enumerate(row):
                     row_dict[self.NAMES[n]] = item
                     row_dict["club"] = club
-                    row_dict["shot"] = str(shot_num)
+                    row_dict["shot_num"] = str(shot_num)
                 data.append(row_dict)
                 shot_num += 1
 
