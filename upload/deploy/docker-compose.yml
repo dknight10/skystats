@@ -9,3 +9,6 @@ services:
       dockerfile: ./deploy/Dockerfile
     ports: 
       - "5000:5000"
+    environment:
+      OUTPUT_TYPE: api
+      OUTPUT_LOCATION: http://localhost:8000/v1/shots/
