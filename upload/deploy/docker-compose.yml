@@ -3,7 +3,7 @@ version: '3'
 services: 
   upload: 
     container_name: skystats-upload
-    image: skystats-upload
+    image: skystats-upload:0.1.0
     build:
       context: ..
       dockerfile: ./deploy/Dockerfile
@@ -11,4 +11,4 @@ services:
       - "5000:5000"
     environment:
       OUTPUT_TYPE: api
-      OUTPUT_LOCATION: http://localhost:8000/v1/shots/
+      OUTPUT_LOCATION: http://skytrakstats.com:8000/v1/shots/
