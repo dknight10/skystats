@@ -1,0 +1,11 @@
+version: '3'
+
+services: 
+  upload: 
+    container_name: skystats-upload
+    image: skystats-upload
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile
+    ports: 
+      - "5000:5000"
