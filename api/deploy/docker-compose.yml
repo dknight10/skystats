@@ -1,0 +1,13 @@
+version: '3'
+
+services: 
+  api: 
+    container_name: skystats-api
+    image: skystats-api:0.1.0
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile
+    ports: 
+      - "8000:8000"
+    environment:
+      DJANGO_SECRET_KEY: h)ib@vl6u5xynk3blxelw5e5f0u5e%0_a*utourf^wp1%4l4dm
