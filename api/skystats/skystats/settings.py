@@ -23,7 +23,7 @@ except KeyError:
 
 DEBUG = not bool(os.environ.get("PROD", False))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
