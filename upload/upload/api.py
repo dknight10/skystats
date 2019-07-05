@@ -12,6 +12,8 @@ from upload.extract import extract_data
 from upload.output import handle_output
 
 app = Flask(__name__)
+# Set max upload size to 8MB
+app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
 
 ALLOWED_EXTENSIONS = [".csv", ".pdf"]
 
