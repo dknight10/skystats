@@ -31,13 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "v1.shots.apps.ShotsConfig",
+    "skystats.v1.shots.apps.ShotsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
@@ -50,7 +49,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "skystats.urls"
+ROOT_URLCONF = "skystats.skystats.urls"
 
 TEMPLATES = [
     {
@@ -68,7 +67,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "skystats.wsgi.application"
+WSGI_APPLICATION = "skystats.skystats.wsgi.application"
 
 
 # Database
@@ -107,9 +106,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-STATIC_URL = "/static/"
