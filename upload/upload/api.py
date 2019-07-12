@@ -2,7 +2,7 @@
 API endpoint to process Skytrak data files and send it
 to another endpoint.
 """
-
+import logging
 import os
 from pathlib import Path
 
@@ -10,6 +10,14 @@ from flask import Flask, jsonify, request
 
 from upload.extract import extract_data
 from upload.output import handle_output
+
+# TODO add json logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s\t%(levelname)-8s\t%(filename)-14s\t%(message)s",
+)
+
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 # Set max upload size to 8MB
@@ -46,13 +54,16 @@ def upload_files():
     try:
         f = request.files["attachment-1"]
     except KeyError:
+        logger.warning("Request made without needed attachment")
         return "Must pass pdf or csv as attachment", 400
 
     if not allowed_file(f.filename):
+        logger.warning(f"File {f.filename} not allowed")
         return "Must pass pdf or csv as attachment", 400
 
     data = extract_data(f)
     if OUTPUT_TYPE:
+        logger.info(f"Sending data to {OUTPUT_TYPE}")
         handle_output(OUTPUT_TYPE, OUTPUT_LOCATION, data)
 
     return jsonify(data), 200
