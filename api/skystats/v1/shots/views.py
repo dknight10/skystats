@@ -1,17 +1,10 @@
 from rest_framework import mixins, viewsets
 
-from .models import Shot
-from .serializers import ShotSerializer
-
-
-class CreateManyModelMixin(mixins.CreateModelMixin):
-    def get_serializer(self, *args, **kwargs):
-        kwargs["many"] = True
-        return super().get_serializer(*args, **kwargs)
+from .models import Session, Shot
+from .serializers import SessionSerializer, ShotSerializer
 
 
 class ShotViewSet(
-    CreateManyModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
@@ -19,3 +12,13 @@ class ShotViewSet(
 ):
     queryset = Shot.objects.all()
     serializer_class = ShotSerializer
+
+
+class SessionViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+    queryset = Session.objects.all()
+    serializer_class = SessionSerializer
