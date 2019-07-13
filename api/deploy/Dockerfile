@@ -2,6 +2,8 @@ FROM python:3.7-stretch
 
 WORKDIR /app/code
 
+ADD manage.py /app/code/
+
 ADD setup.py /app/code/
 
 ADD skystats /app/code/skystats

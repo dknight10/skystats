@@ -10,5 +10,4 @@ services:
     ports: 
       - "5000:5000"
     environment:
-      OUTPUT_TYPE: api
-      OUTPUT_LOCATION: http://skytrakstats.com:8000/v1/shots/
+      API_ENDPOINT: http://skytrakstats.com:8000/v1/sessions/
