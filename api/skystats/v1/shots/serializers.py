@@ -9,9 +9,12 @@ logger = logging.getLogger(__name__)
 
 
 class ShotSerializer(serializers.ModelSerializer):
+    session = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Shot
-        exclude = ("session",)
+        # exclude = ("session",)
+        fields = "__all__"
 
 
 class SessionSerializer(serializers.ModelSerializer):
