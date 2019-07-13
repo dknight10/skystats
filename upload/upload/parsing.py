@@ -222,7 +222,7 @@ class RangeDataParser(Parser):
 
         return data
 
-    def json(self) -> List[Dict[str, str]]:
+    def json(self) -> Dict[str, Any]:
         """
         Calls all verification and extraction steps then adds the metadata
         to each row.
@@ -232,17 +232,15 @@ class RangeDataParser(Parser):
         self.extract_type()
         self.extract_timestamp()
         self.extract_notes()
-        meta = self.session_info.json()
-        data = self.data_rows()
-        for row in data:
-            row.update(meta)
+        data = self.session_info.json()
+        data["shots"] = self.data_rows()
         return data
 
 
 PARSER_MAPPING = {"driving range": RangeDataParser}
 
 
-def json_from_raw(data: List[List[str]], session_type: str) -> List[Dict[str, str]]:
+def json_from_raw(data: List[List[str]], session_type: str) -> Dict[str, Any]:
     """
     Returns formatted json data for the given raw data type.
     """
