@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Session, Shot
 
@@ -19,6 +20,11 @@ class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
         fields = "__all__"
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Session.objects.all(), fields=("timestamp", "session_type")
+            )
+        ]
 
     def create(self, validated_data):
         shots = validated_data.pop("shots")
