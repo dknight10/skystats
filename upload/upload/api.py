@@ -6,10 +6,10 @@ import logging
 import os
 from pathlib import Path
 
+import requests
 from flask import Flask, jsonify, request
 
 from upload.extract import extract_data
-from upload.output import handle_output
 
 # TODO add json logging
 logging.basicConfig(
@@ -25,8 +25,7 @@ app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
 
 ALLOWED_EXTENSIONS = [".csv", ".pdf"]
 
-OUTPUT_TYPE = os.environ.get("OUTPUT_TYPE")
-OUTPUT_LOCATION = os.environ.get("OUTPUT_LOCATION")
+API_ENDPOINT = os.environ["API_ENDPOINT"]
 
 
 def allowed_file(name: str) -> bool:
@@ -62,8 +61,11 @@ def upload_files():
         return "Must pass pdf or csv as attachment", 400
 
     data = extract_data(f)
-    if OUTPUT_TYPE:
-        logger.info(f"Sending data to {OUTPUT_TYPE}")
-        handle_output(OUTPUT_TYPE, OUTPUT_LOCATION, data)
 
-    return jsonify(data), 200
+    res = requests.post(API_ENDPOINT, json=data)
+    if res.status_code == 201:
+        return jsonify(res.json()), 201
+    elif res.status_code == 400:
+        return jsonify(res.json()), 400
+    else:
+        return res.status_code
