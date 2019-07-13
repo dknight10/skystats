@@ -64,8 +64,11 @@ def upload_files():
 
     res = requests.post(API_ENDPOINT, json=data)
     if res.status_code == 201:
+        logger.info("Successfully posted data to API")
         return jsonify(res.json()), 201
     elif res.status_code == 400:
+        logger.warning("Data received contained errors")
         return jsonify(res.json()), 400
     else:
+        logger.info(f"Bad status from API {res.status_code}")
         return res.status_code
