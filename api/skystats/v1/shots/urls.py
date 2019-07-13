@@ -1,9 +1,15 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import ShotViewSet
+from .views import SessionViewSet, ShotViewSet
 
-router = routers.DefaultRouter()
-router.register("", ShotViewSet)
+shots_router = routers.DefaultRouter()
+shots_router.register("", ShotViewSet)
 
-urlpatterns = [path("", include(router.urls))]
+sessions_router = routers.DefaultRouter()
+sessions_router.register("", SessionViewSet)
+
+urlpatterns = [
+    path("shots/", include(shots_router.urls)),
+    path("sessions/", include(sessions_router.urls)),
+]

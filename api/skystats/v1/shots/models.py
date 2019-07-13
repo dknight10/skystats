@@ -30,7 +30,7 @@ class Shot(models.Model):
     club_speed = models.IntegerField()
     pti = models.DecimalField(max_digits=3, decimal_places=2)
     club = models.CharField(max_length=20)  # TODO add choices
-    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name="shots")
 
     class Meta:
         indexes = [models.Index(fields=["club"])]
