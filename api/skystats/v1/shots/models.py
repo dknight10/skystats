@@ -6,8 +6,16 @@ class Session(models.Model):
     timestamp = models.DateTimeField()
     session_type = models.CharField(max_length=20)  # TODO add choices
 
+    def __str__(self):
+        return f"Session<name={self.name}, timestamp={self.timestamp}, session_type={self.session_type}>"
+
     class Meta:
         ordering = ["-timestamp"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["timestamp", "session_type"], name="unique_session"
+            )
+        ]
 
 
 # TODO add validators for number fields

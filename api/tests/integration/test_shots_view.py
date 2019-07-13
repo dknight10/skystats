@@ -152,3 +152,16 @@ def test_shots_view_creates_shots_and_session(client):
 
     for n, shot in enumerate(Shot.objects.all()):
         assert model_to_dict(shot) == expected_shots[n]
+
+
+@pytest.mark.django_db
+def test_session_unique_contraints(client):
+    test_obj = {
+        "name": "Test",
+        "timestamp": "2019-06-29T15:29",
+        "session_type": "practice",
+        "shots": [],
+    }
+    client.post("/v1/sessions/", test_obj, content_type="application/json")
+    client.post("/v1/sessions/", test_obj, content_type="application/json")
+    assert len(Session.objects.all()) == 1
