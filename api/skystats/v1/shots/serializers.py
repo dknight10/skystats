@@ -13,7 +13,6 @@ class ShotSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Shot
-        # exclude = ("session",)
         fields = "__all__"
 
 
