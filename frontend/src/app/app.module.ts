@@ -12,6 +12,8 @@ import { MatListModule } from '@angular/material/list';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
+import { ViewsModule } from './views/views.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    ViewsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
