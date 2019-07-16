@@ -1,3 +1,30 @@
-<p>sessions works!</p>
+<table mat-table [dataSource]="sessions" class="sessions-table">
 
-<p>{{sessions | async | json }}</p>
+    <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.session_type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="shots">
+        <th mat-header-cell *matHeaderCellDef> # Shots </th>
+        <td mat-cell *matCellDef="let element"> {{element.shots_count}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clubs">
+        <th mat-header-cell *matHeaderCellDef> Clubs Used </th>
+        <td mat-cell *matCellDef="let element"> {{element.clubs_abbr}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

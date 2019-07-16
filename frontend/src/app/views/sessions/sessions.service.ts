@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, mergeMap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
-import { Session } from './session';
+import { Session, SessionCreator } from './session';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,7 @@ export class SessionsService {
   getSessions(): Observable<Session[]> {
     return this.http.get<Session[]>(this.sessionsUrl)
       .pipe(
+        map(response => response.map(e => SessionCreator.create(e))),
         tap(_ => console.log('fetched heroes')),
         catchError(this.handleError<Session[]>('getSessions', []))
       );
