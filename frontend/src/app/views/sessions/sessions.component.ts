@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class SessionsComponent implements OnInit {
   sessions: Observable<Session[]>;
+  displayedColumns = ["time", "name", "type", "shots", "clubs"];
 
   constructor(private service: SessionsService) { }
 

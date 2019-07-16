@@ -1,5 +1,5 @@
 
-export class Shot {
+export interface Shot {
     id: number;
     shot_num: number;
     hand: string;
@@ -20,9 +20,35 @@ export class Shot {
     club: string
 }
 
+let CLUB_ABBR_MAPPING = {
+    undefined: "und",
+    driver: "D"
+}
+
 export class Session {
-    name: string;
-    timestamp: string;
-    session_type: string;
-    shots: Shot[];
+    constructor(
+        public name: string,
+        public timestamp: Date,
+        public session_type: string,
+        public shots: Shot[],
+        public shots_count: number,
+        public clubs_used: string[]
+    ) { };
+
+    get clubs_abbr() {
+        return this.clubs_used.map(club => CLUB_ABBR_MAPPING[club])
+    }
+}
+
+export class SessionCreator {
+    static create(event: Session) {
+        return new Session(
+            event.name,
+            new Date(event.timestamp),
+            event.session_type,
+            event.shots,
+            event.shots_count,
+            event.clubs_used
+        )
+    }
 }
