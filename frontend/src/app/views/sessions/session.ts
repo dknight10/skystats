@@ -27,6 +27,7 @@ let CLUB_ABBR_MAPPING = {
 
 export class Session {
     constructor(
+        public id: number,
         public name: string,
         public timestamp: Date,
         public session_type: string,
@@ -42,7 +43,9 @@ export class Session {
 
 export class SessionCreator {
     static create(event: Session) {
+        console.log(event)
         return new Session(
+            event.id,
             event.name,
             new Date(event.timestamp),
             event.session_type,

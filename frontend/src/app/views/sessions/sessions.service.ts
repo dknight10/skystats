@@ -13,17 +13,21 @@ import { Session, SessionCreator } from './session';
 })
 export class SessionsService {
 
-  private sessionsUrl = `${environment['api_endpoint']}/v1/sessions/`
+  private sessionsUrl = `${environment['api_endpoint']}/v1/sessions`
 
   constructor(private http: HttpClient) { }
 
   getSessions(): Observable<Session[]> {
-    return this.http.get<Session[]>(this.sessionsUrl)
+    return this.http.get<Session[]>(this.sessionsUrl + '/')
       .pipe(
         map(response => response.map(e => SessionCreator.create(e))),
-        tap(_ => console.log('fetched heroes')),
         catchError(this.handleError<Session[]>('getSessions', []))
       );
+  }
+
+  download(ids: number[], format: string) {
+    let url = `${this.sessionsUrl}?action=download&format=${format}&id=${ids.join()}`
+    console.log(url)
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -1,4 +1,23 @@
-<table mat-table [dataSource]="sessions" class="sessions-table">
+<div class="header">
+    <button mat-raised-button [disabled]="noneSelected()" color="primary" (click)="download()">
+        <mat-icon [inline]="true" aria-hidden="false">get_app</mat-icon>
+        DOWNLOAD
+    </button>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="sessions-table">
+    <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+        </td>
+    </ng-container>
 
     <ng-container matColumnDef="time">
         <th mat-header-cell *matHeaderCellDef> Time </th>
