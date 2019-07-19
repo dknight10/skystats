@@ -14,7 +14,7 @@ import { Session } from './session';
 export class SessionsComponent implements OnInit {
   dataSource = new MatTableDataSource<Session>();
   selection = new SelectionModel<Session>(true, []);
-  displayedColumns = ["select", "time", "name", "type", "shots", "clubs"];
+  displayedColumns = ["select", "timestamp", "name", "type", "shots", "clubs"];
 
   constructor(private service: SessionsService) { }
 
