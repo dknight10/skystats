@@ -47,6 +47,6 @@ export class SessionsComponent implements OnInit {
     }
     let ids = this.selection.selected.map(row => row.id);
     let format = 'excel';
-    this.service.download(ids, format);
+    this.service.download(ids, format).subscribe();
   }
 }

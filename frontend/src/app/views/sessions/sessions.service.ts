@@ -7,6 +7,7 @@ import { catchError, map, tap, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 import { Session, SessionCreator } from './session';
+import { saveFile, getFileNameFromResponseContentDisposition } from '../../util/file-download-util';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,15 @@ export class SessionsService {
   }
 
   download(ids: number[], format: string) {
-    let url = `${this.sessionsUrl}?action=download&format=${format}&id=${ids.join()}`
-    console.log(url)
+    let url = `${this.sessionsUrl}?action=download&type=excel&id=${ids.join()}`
+    return this.http.get<any>(url, { responseType: "blob" as "json", observe: 'response' })
+      .pipe(
+        map(res => {
+          const fileName = getFileNameFromResponseContentDisposition(res);
+          saveFile(res.body, fileName);
+        }),
+        catchError(this.handleError<any[]>('download', []))
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
