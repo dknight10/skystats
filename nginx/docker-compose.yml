@@ -6,6 +6,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /etc/letsencrypt/:/etc/letsencrypt/
+      - /apps/skystats/static/skystats:/skystats/static/
     ports:
       - "80:80"
       - "443:443"
