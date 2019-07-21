@@ -12,4 +12,5 @@ sessions_router.register("", SessionViewSet)
 urlpatterns = [
     path("shots/", include(shots_router.urls)),
     path("sessions/", include(sessions_router.urls)),
+    path("sessions", include(sessions_router.urls)),
 ]
