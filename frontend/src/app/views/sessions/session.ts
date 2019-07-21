@@ -21,8 +21,35 @@ export interface Shot {
 }
 
 let CLUB_ABBR_MAPPING = {
-    undefined: "und",
-    driver: "D"
+    "undefined": "und",
+    "driver": "D",
+    "2 wood": "2w",
+    "3 wood": "3w",
+    "4 wood": "4w",
+    "5 wood": "5w",
+    "6 wood": "6w",
+    "7 wood": "7w",
+    "8 wood": "8w",
+    "9 wood": "9w",
+    "2 hybrid": "2h",
+    "3 hybrid": "3h",
+    "4 hybrid": "4h",
+    "5 hybrid": "5h",
+    "6 hybrid": "6h",
+    "7 hybrid": "7h",
+    "8 hybrid": "8h",
+    "9 hybrid": "9h",
+    "3 iron": "3i",
+    "4 iron": "4i",
+    "5 iron": "5i",
+    "6 iron": "6i",
+    "7 iron": "7i",
+    "8 iron": "8i",
+    "9 iron": "9i",
+    "pw": "pw",
+    "gw": "gw",
+    "sw": "sw",
+    "lw": "lw"
 }
 
 export class Session {
