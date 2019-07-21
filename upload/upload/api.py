@@ -71,4 +71,4 @@ def upload_files():
         return jsonify(res.json()), 400
     else:
         logger.info(f"Bad status from API {res.status_code}")
-        return res.status_code
+        return res.content, res.status_code
