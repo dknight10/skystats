@@ -11,3 +11,21 @@
 .sessions-table {
     width: 100%;
 }
+
+.mat-table {
+    border-collapse: separate;
+    border-spacing: 0 4px;
+    background: none;
+}
+
+.mat-row {
+    background: #424242;
+}
+
+tr.mat-header-row {
+    background: #424242;
+}
+
+td.mat-cell, th.mat-header-cell {
+    border: none;
+}
