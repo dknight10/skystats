@@ -5,6 +5,12 @@ setup(
     name="skystats-api",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=["Django", "djangorestframework", "gunicorn", "django-cors-headers"],
+    install_requires=[
+        "Django",
+        "djangorestframework",
+        "gunicorn",
+        "django-cors-headers",
+        "pyexcelerate",
+    ],
     python_requires=">=3.7",
 )
