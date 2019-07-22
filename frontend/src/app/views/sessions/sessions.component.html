@@ -5,7 +5,7 @@
     </button>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="sessions-table">
+<table mat-table [dataSource]="dataSource" class="sessions-table" *ngIf="dataLength" [@tableAnimation]="dataLength">
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
@@ -45,5 +45,5 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr [@rowAnimation]="" class="session-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

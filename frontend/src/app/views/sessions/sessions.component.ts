@@ -6,15 +6,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SessionsService } from './sessions.service';
 import { Session } from './session';
 
+import { rowAnimation, tableAnimation } from './table.animation';
+
 @Component({
   selector: 'skystats-sessions',
   templateUrl: './sessions.component.html',
-  styleUrls: ['./sessions.component.scss']
+  styleUrls: ['./sessions.component.scss'],
+  animations: [rowAnimation, tableAnimation]
 })
 export class SessionsComponent implements OnInit {
   dataSource = new MatTableDataSource<Session>();
   selection = new SelectionModel<Session>(true, []);
   displayedColumns = ["select", "timestamp", "name", "type", "shots", "clubs"];
+  dataLength: number;
 
   constructor(private service: SessionsService) { }
 
@@ -33,6 +37,7 @@ export class SessionsComponent implements OnInit {
   ngOnInit() {
     this.service.getSessions().subscribe(data => {
       this.dataSource.data = data
+      this.dataLength = data.length
       this.masterToggle();  // select all rows initially
     });
   }
