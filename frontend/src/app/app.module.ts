@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { CallbackComponent } from './auth/callback.component';
 
 import { ViewsModule } from './views/views.module';
 
@@ -18,7 +19,8 @@ import { ViewsModule } from './views/views.module';
   declarations: [
     AppComponent,
     NavbarComponent,
-    SidenavComponent
+    SidenavComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
