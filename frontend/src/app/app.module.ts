@@ -19,6 +19,9 @@ import { ViewsModule } from './views/views.module';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileMenuComponent } from './profile/profile-menu/profile-menu.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/token.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,13 @@ import { ProfileMenuComponent } from './profile/profile-menu/profile-menu.compon
     MatMenuModule,
     ViewsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

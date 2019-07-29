@@ -16,7 +16,8 @@ export class AuthService {
   config = {
     domain: "dk-test.auth0.com",
     client_id: "Ds252C21hi10xyNPhkkiC10Vibm3dIAv",
-    redirect_uri: `${window.location.origin}/callback`
+    redirect_uri: `${window.location.origin}/callback`,
+    audience: "https://skytrakstats.com/api"
   };
 
   /**
