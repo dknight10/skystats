@@ -4,6 +4,7 @@ to another endpoint.
 """
 import logging
 import os
+import re
 from pathlib import Path
 
 import requests
@@ -38,6 +39,13 @@ def allowed_file(name: str) -> bool:
     return False
 
 
+def extract_email(s: str) -> str:
+    match = re.match(r".+<(.+)>", s)
+    if not match:
+        raise ValueError("Could not extract email address")
+    return match.group(1)
+
+
 @app.route("/upload", methods=["POST"])
 def upload_files():
     """
@@ -51,6 +59,15 @@ def upload_files():
       4. Returns the processed data as json
     """
     try:
+        sender = extract_email(request.form["From"])
+    except (TypeError, KeyError):
+        logger.warning("Could not get sender from request")
+        return "Sender must be provided", 400
+    except ValueError:
+        logger.warning("Error extracting email address")
+        return "Could not extract email address", 400
+
+    try:
         f = request.files["attachment-1"]
     except KeyError:
         logger.warning("Request made without needed attachment")
@@ -61,6 +78,7 @@ def upload_files():
         return "Must pass pdf or csv as attachment", 400
 
     data = extract_data(f)
+    data["user"] = sender
 
     res = requests.post(API_ENDPOINT, json=data)
     if res.status_code == 201:
