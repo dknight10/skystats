@@ -10,7 +10,6 @@ def excel_http_response(filename: str, *data_sources: DataSource) -> HttpRespons
 
     wb = Workbook()
     for data in data_sources:
-        print(list(data.data()))
         wb.new_sheet(data.name, list(data.data()))
 
     wb.save(response)
