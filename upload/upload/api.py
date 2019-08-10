@@ -81,6 +81,8 @@ def upload_files():
     data = extract_data(f)
     data["user"] = sender
 
+    logger.info("Data extracted, sending to API")
+
     res = requests.post(
         API_ENDPOINT, json=data, headers={"Authorization": f"Bearer {get_token()}"}
     )

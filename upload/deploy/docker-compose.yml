@@ -10,7 +10,9 @@ services:
     ports: 
       - "5000:5000"
     environment:
-      API_ENDPOINT: https://skytrakstats.com:8000/v1/sessions/
+      API_ENDPOINT: https://skytrakstats.com/api/v1/sessions/
       AUTH0_AUDIENCE: https://skytrakstats.com/api
       AUTH0_GRANT_TYPE: client_credentials
       AUTH0_URL: https://dk-test.auth0.com/oauth/token
+    env_file:
+      - creds.env
