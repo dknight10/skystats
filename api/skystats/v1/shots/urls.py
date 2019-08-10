@@ -7,7 +7,7 @@ shots_router = routers.DefaultRouter()
 shots_router.register("", ShotViewSet)
 
 sessions_router = routers.DefaultRouter()
-sessions_router.register("", SessionViewSet)
+sessions_router.register("", SessionViewSet, basename="sessions")
 
 urlpatterns = [
     path("shots/", include(shots_router.urls)),
