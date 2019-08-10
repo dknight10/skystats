@@ -5,12 +5,15 @@ class Session(models.Model):
     name = models.CharField(max_length=100)
     timestamp = models.DateTimeField()
     session_type = models.CharField(max_length=20)  # TODO add choices
+    user = models.EmailField()
 
     def __str__(self):
-        return f"Session<name={self.name}, timestamp={self.timestamp}, session_type={self.session_type}>"
+        return f"Session<name={self.name}, timestamp={self.timestamp}, \
+            session_type={self.session_type} user={self.user}>"
 
     class Meta:
         ordering = ["-timestamp"]
+        indexes = [models.Index(fields=["user"])]
         constraints = [
             models.UniqueConstraint(
                 fields=["timestamp", "session_type"], name="unique_session"
