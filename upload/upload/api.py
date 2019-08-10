@@ -10,6 +10,7 @@ from pathlib import Path
 import requests
 from flask import Flask, jsonify, request
 
+from upload.auth import get_token
 from upload.extract import extract_data
 
 # TODO add json logging
@@ -80,7 +81,9 @@ def upload_files():
     data = extract_data(f)
     data["user"] = sender
 
-    res = requests.post(API_ENDPOINT, json=data)
+    res = requests.post(
+        API_ENDPOINT, json=data, headers={"Authorization": f"Bearer {get_token()}"}
+    )
     if res.status_code == 201:
         logger.info("Successfully posted data to API")
         return jsonify(res.json()), 201
