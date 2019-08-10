@@ -20,6 +20,21 @@ class Session(models.Model):
             )
         ]
 
+    @property
+    def clubs_used(self):
+        clubs = set()
+        for shot in self.shots.all():
+            clubs.add(shot.club)
+        return list(clubs)
+
+    @property
+    def clubs_used_str(self):
+        return ", ".join(self.clubs_used)
+
+    @property
+    def shots_count(self):
+        return self.shots.all().count()
+
 
 # TODO add validators for number fields
 class Shot(models.Model):
