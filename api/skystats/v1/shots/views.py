@@ -50,53 +50,48 @@ class SessionViewSet(
                 int(_id) for _id in request.query_params.get("id").split(",")
             ]
 
-            serializer = SessionSerializer(
-                Session.objects.filter(id__in=session_ids), many=True
-            )
-
-            for row in serializer.data:
-                row["clubs_used"] = ", ".join(row["clubs_used"])
-
+            # TODO see if a property on the models can be used for display names.
+            # Tried using verbose_name, but won't work for the property fields.
             columns = (
-                "id",
+                ("id", "session id"),
                 "name",
                 "timestamp",
-                "session_type",
-                "clubs_used",
-                "shots_count",
+                ("session_type", "session type"),
+                ("clubs_used_str", "clubs used"),
+                ("shots_count", "shots count"),
             )
 
             sessions = DataSource(
-                name="sessions", columns=columns, data=serializer.data
-            )
-
-            shot_serializer = ShotSerializer(
-                Shot.objects.filter(session__in=session_ids), many=True
+                name="sessions",
+                columns=columns,
+                data=Session.objects.filter(id__in=session_ids),
             )
 
             shot_columns = (
-                "session",
-                "shot_num",
+                ("session_id", "session id"),
+                ("shot_num", "shot number"),
                 "hand",
-                "ball_speed",
-                "launch_angle",
-                "back_spin",
-                "side_spin",
-                "side_angle",
-                "offline_distance",
+                ("ball_speed", "ball speed"),
+                ("launch_angle", "launch angle"),
+                ("back_spin", "back spin"),
+                ("side_spin", "side spin"),
+                ("side_angle", "side angle"),
+                ("offline_distance", "offline distance"),
                 "carry",
                 "roll",
                 "total",
-                "hang_time",
-                "descent_angle",
-                "peak_height",
-                "club_speed",
+                ("hang_time", "hang time"),
+                ("descent_angle", "descent angle"),
+                ("peak_height", "peak height"),
+                ("club_speed", "club speed"),
                 "pti",
                 "club",
             )
 
             shots = DataSource(
-                name="shots", columns=shot_columns, data=shot_serializer.data
+                name="shots",
+                columns=shot_columns,
+                data=Shot.objects.filter(session__in=session_ids),
             )
 
             return excel_http_response(
