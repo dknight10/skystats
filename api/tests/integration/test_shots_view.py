@@ -12,6 +12,7 @@ sample = {
     "name": "Donny Knight",
     "timestamp": "2019-06-29T15:29",
     "session_type": "practice",
+    "user": "donny@test.com",
     "shots": [
         {
             "id": 1,
@@ -78,7 +79,7 @@ sample = {
 
 
 @pytest.mark.django_db
-def test_shots_view_creates_shots_and_session(client):
+def test_shots_view_creates_shots_and_session(client, auth_headers, mocker):
     expected_shots = [
         {
             "session": 1,
@@ -144,24 +145,38 @@ def test_shots_view_creates_shots_and_session(client):
             "club": "undefined",
         },
     ]
-    client.post("/v1/sessions/", sample, content_type="application/json")
+    mocker.patch(
+        "skystats.shared.auth.get_email_from_user_info", return_value="donny@test.com"
+    )
+    client.post(
+        "/v1/sessions/", sample, content_type="application/json", **auth_headers
+    )
     session = Session.objects.get(id=1)
     assert session.name == "Donny Knight"
     assert session.timestamp == datetime.datetime(2019, 6, 29, 15, 29, tzinfo=pytz.UTC)
     assert session.session_type == "practice"
+    assert session.user == "donny@test.com"
 
     for n, shot in enumerate(Shot.objects.all()):
         assert model_to_dict(shot) == expected_shots[n]
 
 
 @pytest.mark.django_db
-def test_session_unique_contraints(client):
+def test_session_unique_contraints(client, auth_headers, mocker):
+    mocker.patch(
+        "skystats.shared.auth.get_email_from_user_info", return_value="donny@test.com"
+    )
     test_obj = {
         "name": "Test",
         "timestamp": "2019-06-29T15:29",
         "session_type": "practice",
         "shots": [],
+        "user": "donny@test.com",
     }
-    client.post("/v1/sessions/", test_obj, content_type="application/json")
-    client.post("/v1/sessions/", test_obj, content_type="application/json")
+    client.post(
+        "/v1/sessions/", test_obj, content_type="application/json", **auth_headers
+    )
+    client.post(
+        "/v1/sessions/", test_obj, content_type="application/json", **auth_headers
+    )
     assert len(Session.objects.all()) == 1
