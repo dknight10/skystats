@@ -10,7 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import json
 import os
+
+import textwrap
+from six.moves.urllib import request
+from cryptography.x509 import load_pem_x509_certificate
+from cryptography.hazmat.backends import default_backend
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,6 +30,7 @@ INSTALLED_APPS = [
     # apps
     "skystats.v1.shots.apps.ShotsConfig",
     # 3rd party
+    "rest_framework",
     "corsheaders",
     # core
     "django.contrib.admin",
@@ -40,9 +47,24 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.auth.middleware.RemoteUserMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "django.contrib.auth.backends.RemoteUserBackend",
+]
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ),
+}
 
 CORS_EXPOSE_HEADERS = ["content-disposition"]
 
@@ -103,6 +125,28 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+AUTH0_URL = "https://dk-test.auth0.com/"
+
+jsonurl = request.urlopen(AUTH0_URL + ".well-known/jwks.json")
+jwks = json.loads(jsonurl.read())
+cert = (
+    "-----BEGIN CERTIFICATE-----\n"
+    + textwrap.fill(jwks["keys"][0]["x5c"][0], 64)
+    + "\n-----END CERTIFICATE-----"
+)
+
+certificate = load_pem_x509_certificate(str.encode(cert), default_backend())
+publickey = certificate.public_key()
+
+JWT_AUTH = {
+    "JWT_PAYLOAD_GET_USERNAME_HANDLER": "skystats.skystats.user.jwt_get_username_from_payload_handler",
+    "JWT_PUBLIC_KEY": publickey,
+    "JWT_ALGORITHM": "RS256",
+    "JWT_AUDIENCE": "https://skytrakstats.com/api",
+    "JWT_ISSUER": AUTH0_URL,
+    "JWT_AUTH_HEADER_PREFIX": "Bearer",
+}
 
 if bool(os.environ.get("PROD", False)):
     from .prod_settings import *  # noqa

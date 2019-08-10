@@ -11,6 +11,12 @@ setup(
         "gunicorn",
         "django-cors-headers",
         "pyexcelerate",
+        "djangorestframework-jwt",
+        "cryptography",
+        "pyjwt",
+        "python-dotenv",
+        "python-jose",
+        "requests",
     ],
     python_requires=">=3.7",
 )

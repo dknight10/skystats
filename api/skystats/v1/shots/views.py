@@ -1,9 +1,11 @@
 import datetime
 
 from rest_framework import mixins, viewsets
+from rest_framework.exceptions import AuthenticationFailed
 
 from .models import Session, Shot
 from .serializers import SessionSerializer, ShotSerializer
+from skystats.shared.auth import requires_scope, get_email_from_user_info, AuthError
 from skystats.v1.export.data_source import DataSource
 from skystats.v1.export.excel import excel_http_response
 
@@ -24,9 +26,21 @@ class SessionViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = Session.objects.all()
     serializer_class = SessionSerializer
 
+    def get_queryset(self):
+        try:
+            email = get_email_from_user_info(self.request)
+        except AuthError:
+            raise AuthenticationFailed("Could not get email for user")
+
+        return Session.objects.filter(user=email)
+
+    @requires_scope("write:sessions")
+    def create(self, request):
+        return super().create(request)
+
+    @requires_scope("read:sessions")
     def list(self, request):
         if not request.query_params.get("action"):
             return super().list(request)

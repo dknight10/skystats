@@ -1,0 +1,9 @@
+<div class="profile-menu" [matMenuTriggerFor]="menu">
+    <img class="image" src="{{image}}">
+    <span class="name">{{name}}</span>
+    <mat-icon [inline]="true" id="expand-icon">expand_more</mat-icon>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button (click)="logout()" mat-menu-item>Logout</button>
+</mat-menu>

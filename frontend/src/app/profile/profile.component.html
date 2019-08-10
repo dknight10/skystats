@@ -1,0 +1,3 @@
+<skystats-profile-menu *ngIf="this.isAuthenticated && this.profile" [name]="profile.nickname" [image]="profile.picture"
+    (loggedOut)="logout()">
+</skystats-profile-menu>
