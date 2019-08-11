@@ -21,7 +21,6 @@ export interface Shot {
 }
 
 let CLUB_ABBR_MAPPING = {
-    "undefined": "und",
     "driver": "D",
     "2 wood": "2w",
     "3 wood": "3w",
@@ -49,7 +48,8 @@ let CLUB_ABBR_MAPPING = {
     "pw": "pw",
     "gw": "gw",
     "sw": "sw",
-    "lw": "lw"
+    "lw": "lw",
+    "undefined": "und",
 }
 
 export class Session {
@@ -64,7 +64,11 @@ export class Session {
     ) { };
 
     get clubs_abbr() {
-        return this.clubs_used.map(club => CLUB_ABBR_MAPPING[club])
+        const keys = Object.keys(CLUB_ABBR_MAPPING)
+        return this.clubs_used
+            .sort((a, b) => keys.indexOf(a) - keys.indexOf(b))
+            .map(x => CLUB_ABBR_MAPPING[x])
+            .join(', ')
     }
 }
 
