@@ -4,6 +4,10 @@ from tests.samples import TEST_RANGE_DATA
 from upload.parsing import RangeDataParser
 
 
+# TODO look into using faker and factoryboy instead of
+# some of the verbose sample data
+
+
 def test_range_data_parser_extracts_name():
     parser = RangeDataParser(TEST_RANGE_DATA)
     parser.extract_name()
